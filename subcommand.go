@@ -15,7 +15,7 @@ type subCommand interface {
 
 func run(name string, sc subCommand, args []string, toplevel map[string]interface{}) {
 	argv := []string{name}
-	argv = append(argv, opts.args...)
+	argv = append(argv, args...)
 	subParseArgv(sc, argv, toplevel)
 
 	sc.action()

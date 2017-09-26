@@ -5,20 +5,18 @@ import (
 )
 
 type options struct {
-	cmd       string
-	args      []string
-	url       string
-	debug     bool
-	mesosPort int
+	cmd    string
+	args   []string
+	prefix string
+	strict bool
 }
 
-const docstring = `Issue commands against a Singularity
+const docstring = `Process and manipulate semantic version strings
 Usage: versiontool [options] <cmd> [<args>...]
 
 Options:
-  --url=<string>      The URL of the singularity to contact
-  --debug, -d         Enable extra output
-  --mesos-port=<int>  Mesos agent port [default: 5051]
+  --prefix=<string>   A prefix to use with versions. (e.g "v" for v1.2.3)
+	--strict, -S        Absolutely require the presence of the prefix
 `
 
 func docStr() string {
