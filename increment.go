@@ -1,8 +1,17 @@
 package main
 
-import "github.com/samsalisbury/semv"
+import (
+	"fmt"
+	"io"
 
-type incrementCmd struct{}
+	"github.com/samsalisbury/semv"
+)
+
+type incrementCmd struct {
+	major, minor, patch int
+	noReset             bool
+	version             string
+}
 
 func (inc *incrementCmd) description() string {
 	return "increments a version"
@@ -10,36 +19,36 @@ func (inc *incrementCmd) description() string {
 
 func (inc *incrementCmd) docs() string {
 	return inc.description() + `
-  Usage: versiontool increment [options] <version>
+Usage: increment [options] <version>
 
-  Options:
-    --no-reset, -R            Do not reset smaller increments
-    --major=<int>, -M<int>    Increment major version by <int>
-    --minor=<int>, -m<int>    Increment minor version by <int>
-    --patch=<int>, -p<int>    Increment patch version by <int>
+Options:
+	--no-reset, -R             Do not reset smaller increments
+	--major=<int>, -M <int>    Increment major version by <int>
+	--minor=<int>, -m <int>    Increment minor version by <int>
+	--patch=<int>, -p <int>    Increment patch version by <int>
 
-  Resetting will clear or set to zero parts of the version less significant
-  than the parts being incremented. This is almost always what.
+Resetting will clear or set to zero parts of the version less significant
+than the parts being incremented. This is almost always what.
 
-  With no arguments provided, the default is -p1 - that is to bump the patch
-  version by one.
+With no arguments provided, the default is -p1 - that is to bump the patch
+version by one.
 
-  Example:
-    > versiontool increment -M 1 1.2.3-rc1
-    2.0.0
+Example:
+> versiontool increment -M 1 1.2.3-rc1
+2.0.0
 
-    > versiontool increment -M 1 -m 1 1.2.3-rc1
-    2.1.0
+> versiontool increment -M 1 -m 1 1.2.3-rc1
+2.1.0
 
-    > versiontool increment --no-reset -M 1 1.2.3-rc1
-    2.2.3-rc1
+> versiontool increment --no-reset -M 1 1.2.3-rc1
+2.2.3-rc1
 
-    > versiontool increment --no-reset -M 1 -m 1 1.2.3-rc1
-    2.3.3-rc1
-  `
+> versiontool increment --no-reset -M 1 -m 1 1.2.3-rc1
+2.3.3-rc1
+`
 }
 
-func (inc *incrementCmd) action() {
+func (inc *incrementCmd) action(out, err io.Writer) {
 	version := semv.MustParse(inc.version)
 
 	if inc.major == 0 && inc.minor == 0 && inc.patch == 0 {
@@ -73,5 +82,5 @@ func (inc *incrementCmd) action() {
 		}
 	}
 
-	fmt.Println(version)
+	fmt.Fprintln(out, version)
 }

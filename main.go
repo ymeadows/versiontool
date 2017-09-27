@@ -2,33 +2,28 @@ package main
 
 import "log"
 
-var subCommands = map[string]*subCommand{
-	"help":      &helpCmd(),
-	"increment": &incrementCmd(),
-	"decrement": &decrementCmd(),
-	"sort":      &sortCmd(),
+var subCommands = map[string]subCommand{
+	"help":      &helpCmd{},
+	"increment": &incrementCmd{},
+	"decrement": &decrementCmd{},
+	"sort":      &sortCmd{},
 }
 
 func main() {
 	log.SetFlags(0)
-	parsed := parseOpts()
+	parsed := parseOpts(nil)
 	opts := options{}
 	parsed.fill(&opts)
 
-	var cmd subCommand
+	cmd := chooseSubcommand(opts.cmd)
 
-	switch opts.cmd {
-	default:
-		log.Fatalf("Subcommand not recognized: %s", opts.cmd)
-	case "help":
-		cmd = &helpCmd{}
-	case "increment":
-		cmd = &incrementCmd{}
-	case "decrement":
-		cmd = &decrementCmd{}
-	case "sort":
-		cmd = &sortCmd{}
+	run(opts.cmd, cmd, opts.args, parsed)
+}
+
+func chooseSubcommand(name string) subCommand {
+	if cmd, has := subCommands[name]; has {
+		return cmd
 	}
-
-	run(cmd, opts.cmd, cpts.args, parsed)
+	log.Fatalf("Subcommand not recognized: %s", name)
+	return nil
 }
