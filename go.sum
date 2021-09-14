@@ -1,0 +1,6 @@
+github.com/SeeSpotRun/coerce v0.0.0-20160818223730-254d9a298715 h1:bzzNjwyiIx8SplQ1jrIi1JZllt99HmJy2+y9rUptXQo=
+github.com/SeeSpotRun/coerce v0.0.0-20160818223730-254d9a298715/go.mod h1:/fW4IHJlYds5UbebJpszWJmB/bq+hbwxB9KVvk+nt+0=
+github.com/docopt/docopt-go v0.0.0-20160216232012-784ddc588536 h1:rHnpq7uNlix5l7tWZ55iJcHHrxCPnOVF4FGb7qOT2Jc=
+github.com/docopt/docopt-go v0.0.0-20160216232012-784ddc588536/go.mod h1:WwZ+bS3ebgob9U8Nd0kOddGdZWjyMGR8Wziv+TBNwSE=
+github.com/samsalisbury/semv v0.0.0-20161026133840-96b491809bff h1:9J5dN9yCLHgcHGWsqwXtXEyKhP0NUMMQZVVCBnH6dQo=
+github.com/samsalisbury/semv v0.0.0-20161026133840-96b491809bff/go.mod h1:cPpzDBOaIdCiAlOq10yGR1G/UsfhyElNBsqJ4mp234o=
