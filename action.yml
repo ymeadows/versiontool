@@ -8,6 +8,16 @@ inputs:
     description: Operation to perform (increment, decrement, cut, highest)
     required: false
     default: increment
+  prefix:
+    description: a prefix to expect for the version string (e.g. 'v')
+    required: false
+  strict:
+    description: treat the prefix strictly i.e. error if not present
+    required: false
+    default: false
+  flags:
+    description: flags to pass to versiontool, like --major or --minor 2
+    required: false
 outputs:
   result:
     description: the result of the calculation
