@@ -14,6 +14,7 @@ fi
 if [ "$INPUT_OPERATION" == "sort" ] || [ "$INPUT_OPERATION" == "highest" ]; then
   set -x
   echo "::set-output name=result::"$( /versiontool "$INPUT_OPERATION" $INPUT_FLAGS < "$INPUT_VERSION")
+  exit
 fi
 set -x
 echo "::set-output name=result::"$(/versiontool $prefix $strict "$INPUT_OPERATION" $INPUT_FLAGS "$INPUT_VERSION")
