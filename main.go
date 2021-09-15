@@ -6,6 +6,7 @@ var subCommands = map[string]subCommand{
 	"help":      &helpCmd{},
 	"increment": &incrementCmd{},
 	"decrement": &decrementCmd{},
+	"cut":       &cutCommand{},
 	"sort":      &sortCmd{},
 }
 

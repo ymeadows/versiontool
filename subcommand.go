@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"os"
 
 	"github.com/SeeSpotRun/coerce"
 	docopt "github.com/docopt/docopt-go"
+	"github.com/samsalisbury/semv"
 )
 
 type subCommand interface {
@@ -41,4 +43,14 @@ func subParseArgv(sc subCommand, argv []string, toplevel map[string]interface{})
 		return err
 	}
 	return coerce.Struct(sc, parsed, "-%s", "--%s", "<%s>")
+}
+
+func parseVersion(prefix, version string, strict bool) (semv.Version, error) {
+	if version[0:len(prefix)] == prefix {
+		version = version[len(prefix) : len(version)-1]
+	} else if strict {
+		return semv.Version{}, fmt.Errorf("Version string: %q does not start with prefix %q", version, prefix)
+	}
+
+	return semv.Parse(version)
 }

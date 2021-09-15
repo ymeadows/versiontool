@@ -3,14 +3,15 @@ package main
 import (
 	"fmt"
 	"io"
-
-	"github.com/samsalisbury/semv"
+	"log"
 )
 
 type incrementCmd struct {
 	major, minor, patch int
 	noReset             bool
 	version             string
+	prefix              string
+	strict              bool
 }
 
 func (inc *incrementCmd) description() string {
@@ -48,8 +49,11 @@ Example:
 `
 }
 
-func (inc *incrementCmd) action(out, err io.Writer) {
-	version := semv.MustParse(inc.version)
+func (inc *incrementCmd) action(out, e io.Writer) {
+	version, err := parseVersion(inc.prefix, inc.version, inc.strict)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	if inc.major == 0 && inc.minor == 0 && inc.patch == 0 {
 		inc.patch = 1
@@ -82,5 +86,5 @@ func (inc *incrementCmd) action(out, err io.Writer) {
 		}
 	}
 
-	fmt.Fprintln(out, version)
+	fmt.Fprintf(out, "%s%s\n", inc.prefix, version)
 }
