@@ -22,6 +22,7 @@ func run(name string, sc subCommand, args []string, toplevel map[string]interfac
 		log.Fatal(err)
 	}
 
+	debug("subcommand: %#v", sc)
 	sc.action(os.Stdout, os.Stderr)
 }
 
@@ -47,10 +48,12 @@ func subParseArgv(sc subCommand, argv []string, toplevel map[string]interface{})
 
 func parseVersion(prefix, version string, strict bool) (semv.Version, error) {
 	if version[0:len(prefix)] == prefix {
-		version = version[len(prefix) : len(version)-1]
+		version = version[len(prefix):len(version)]
 	} else if strict {
 		return semv.Version{}, fmt.Errorf("Version string: %q does not start with prefix %q", version, prefix)
 	}
 
-	return semv.Parse(version)
+	v, err := semv.Parse(version)
+	debug("version parsed: %#v", v)
+	return v, err
 }

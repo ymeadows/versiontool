@@ -9,6 +9,7 @@ type options struct {
 	args   []string
 	prefix string
 	strict bool
+	debug  bool
 }
 
 const docstring = `Process and manipulate semantic version strings
@@ -17,6 +18,7 @@ Usage: versiontool [options] <cmd> [<args>...]
 Options:
   --prefix=<string>   A prefix to use with versions. (e.g "v" for v1.2.3)
   --strict, -S        Absolutely require the presence of the prefix
+	--debug             Debug output
 `
 
 func docStr() string {

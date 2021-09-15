@@ -10,6 +10,9 @@ var subCommands = map[string]subCommand{
 	"sort":      &sortCmd{},
 }
 
+var debug = func(fmt string, args ...interface{}) {
+}
+
 func main() {
 	log.SetFlags(0)
 	parsed := parseOpts(nil)
@@ -18,6 +21,13 @@ func main() {
 
 	cmd := chooseSubcommand(opts.cmd)
 
+	if opts.debug {
+		debug = func(fmt string, args ...interface{}) {
+			log.Printf(fmt, args)
+		}
+	}
+
+	debug("Top level args: %#v", opts)
 	run(opts.cmd, cmd, opts.args, parsed)
 }
 
