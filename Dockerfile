@@ -9,6 +9,7 @@ RUN env GOOS=linux GARCH=amd64 CGO_ENABLED=0 go build .
 FROM bash
 
 COPY --from=buildgo /work/versiontool /versiontool
+COPY github-action.sh /github-action.sh
 
 LABEL com.ymeadows.baseimage=scratch
 LABEL org.opencontainers.image.source=https://github.com/ymeadows/versiontool
