@@ -1,0 +1,17 @@
+name: Versions
+description: Do math on semantic versions
+inputs:
+  version:
+    description: Input version
+    required: true
+  operation:
+    description: Operation to perform (increment, decrement, cut, highest)
+    required: false
+    default: increment
+outputs:
+  result:
+    description: the result of the calculation
+runs:
+  using: docker
+  image: Dockerfile
+  entrypoint: ./entrypoint.sh

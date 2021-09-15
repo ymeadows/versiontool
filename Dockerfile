@@ -6,7 +6,7 @@ RUN env GOOS=linux GARCH=amd64 CGO_ENABLED=0 go build .
 
 # This image name is documented below with the com.ymeadows.baseimage label
 # If you update the line below, update the label to match.
-FROM scratch
+FROM bash
 
 COPY --from=buildgo /work/versiontool /versiontool
 

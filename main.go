@@ -8,6 +8,7 @@ var subCommands = map[string]subCommand{
 	"decrement": &decrementCmd{},
 	"cut":       &cutCommand{},
 	"sort":      &sortCmd{},
+	"highest":   &highestCmd{},
 }
 
 var debug = func(fmt string, args ...interface{}) {
