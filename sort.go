@@ -79,5 +79,9 @@ Usage: highest
 
 func (max highestCmd) action(out, _ io.Writer) {
 	versions := sortFromInput()
-	fmt.Fprintln(out, versions[len(versions)-1])
+	if len(versions) > 0 {
+		fmt.Fprintln(out, versions[len(versions)-1])
+	} else {
+		fmt.Fprintln(out, "0.0.0")
+	}
 }
