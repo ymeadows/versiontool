@@ -24,7 +24,7 @@
             src = builtins.path {
               path = ./.;
             };
-            vendorHash = "sha256-A01010010110000110110101100101010011011100A=";
+            vendorHash = "sha256-4psCGkRw9GZIZlPMDpm70QukPX7tCtz2RHCxhb65B1c=";
           };
 
           default = versiontool;
